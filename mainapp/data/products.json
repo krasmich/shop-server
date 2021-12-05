@@ -1,0 +1,50 @@
+[
+  {
+    "category": "Диваны",
+    "name": "Для вашей семьи",
+    "image": "product-1.jpg",
+    "description": "",
+    "price": 1234,
+    "discount": 12
+  },
+    {
+    "category": "Торшеры",
+    "name": "Ночной",
+    "image": "product-3.jpg",
+    "description": "",
+    "price": 2342,
+    "discount": 0
+  },
+    {
+    "category": "Кровати",
+    "name": "Одноместный",
+    "image": "product-4.jpg",
+    "description": "",
+    "price": 5674,
+    "discount": 7
+  },
+    {
+    "category": "Стулья",
+    "name": "Кухоный",
+    "image": "product-51.jpg",
+    "description": "",
+    "price": 247,
+    "discount": 44
+  },
+    {
+    "category": "Шкафы",
+    "name": "Вместимый",
+    "image": "product-21.jpg",
+    "description": "",
+    "price": 624,
+    "discount": 34
+  },
+    {
+    "category": "Столы",
+    "name": "Компьютерный",
+    "image": "product-4.jpg",
+    "description": "",
+    "price": 6346,
+    "discount": 0
+  }
+]
