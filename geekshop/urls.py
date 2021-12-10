@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from mainapp.views import main, products, contact, context
 from django.conf import settings
+from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +29,7 @@ urlpatterns = [
     path('home', main, name='home'),
     path('product', products, name='product'),
     path('contacts', contact, name='contacts'),
+    path('auth/', include('authapp.urls', namespace='auth'))
 ]
 
 if settings.DEBUG:
