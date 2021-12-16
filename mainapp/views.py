@@ -2,6 +2,7 @@ import json
 import os
 
 from django.shortcuts import render
+from mainapp.models import ProductCategory,Product
 
 # Create your views here.
 
@@ -15,10 +16,12 @@ module_dir = os.path.dirname(__file__)
 
 
 def main(request):
-    content = {
-        'title': 'Меню',
-        'links_menu': links_menu,
-    }
+
+    title = 'главная'
+
+    products = Product.objects.all()[:3]
+
+    content = {'title': title, 'products': products, 'links_menu': links_menu}
     return render(request, 'mainapp/index.html', content)
 
 
