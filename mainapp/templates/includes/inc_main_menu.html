@@ -1,0 +1,33 @@
+<ul class="menu">
+     {% for link in menu %}
+    <li>
+        <a href="{%  url link.href %}"
+             class="{% if request.resolver_match.url_name == link.href %}
+              active
+              {% endif %}">
+            {{ link.name }}
+        </a>
+
+    </li>
+
+    {% endfor %}
+
+
+    {% if user.is_authenticated %}
+    <li>
+        <a href="{% url 'auth:logout' %}"> выйти</a>
+        {{ user.first_name|default:'Пользователь' }}
+    </li>
+    {% else %}
+    <li>
+        <a href="{% url 'auth:login' %}"> войти</a>
+    </li>
+    {% endif %}
+</ul>
+
+
+<a href="{% url 'basket:view' %}" class="basket">
+    <span>
+        {% if basket %} {{ basket|length }} {% endif %}
+    </span>
+</a>

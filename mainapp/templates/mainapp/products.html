@@ -3,57 +3,42 @@
 {% block title %}
 	{{ title|title }}
 {% endblock %}
- {% block css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-	<link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
- {% endblock %}
 
-<body>
-		{% block menu %}
+
+	{% block menu %}
 		<div class="hero-white">
 			<div class="header clearfix">
-				<a href="index.html" class="logo"></a>
-				<ul class="menu">
-					{% include 'includes/inc_categories_menu.html' %}
-				</ul>
+				<a href="{% url 'index' %}" class="logo"></a>
+				{% include 'includes/inc_main_menu.html' %}
 				<a href="#" class="search"></a>
                 <a href="#" class="basket"></a>
 			</div>
 		</div>
 
+
 		<div class="details">
 			<div class="links clearfix">
-				<ul class="links-menu">
-					<li><a href="#" class="active">все</a></li>
-					<li><a href="#">дом</a></li>
-					<li><a href="#">офис</a></li>
-					<li><a href="#">модерн</a></li>
-					<li><a href="#">классика</a></li>
-				</ul>
+				{% include 'includes/inc_categories_menu.html' %}
 			</div>
-		{% endblock  %}
-
-		{% block content %}
 
 			<div class="details-products">
 				<div class="details-slider">
 					<div class="slider-product">
-						<img src="{% static 'img/slider1.jpg' %}">
+						<img src="/static/img/slider1.jpg">
 					</div>
 					<div class="slider-control">
 						<div class="block">
-							<a href="#"><img src="{% static 'img/controll.jpg' %}" alt="">
-								<div class="text"></div>
-							</a>
-						</div>
-
-						<div class="block">
-							<a href="#"><img src="{% static 'img/controll1.jpg' %}" alt="">
+							<a href="#"><img src="/static/img/controll.jpg" alt="">
 								<div class="text"></div>
 							</a>
 						</div>
 						<div class="block">
-							<a href="#"><img src="{% static 'img/controll2.jpg' %}" alt="">
+							<a href="#"><img src="/static/img/controll1.jpg" alt="">
+								<div class="text"></div>
+							</a>
+						</div>
+						<div class="block">
+							<a href="#"><img src="/static/img/controll2.jpg" alt="">
 								<div class="text"></div>
 							</a>
 						</div>
@@ -77,6 +62,9 @@
 					</div>
 				</div>
 			</div>
+	{% endblock %}
+
+	{% block content %}
 
 			<div class="related">
 				<div class="title clearfix">
@@ -94,7 +82,7 @@
 							</div>
 						</a>
 					</div>
-					{% endfor %}
+	{% endfor %}
 
 
 				</div>
@@ -105,5 +93,3 @@
 	{% endblock  %}
 
 
-
-</body>
