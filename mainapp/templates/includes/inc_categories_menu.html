@@ -9,4 +9,14 @@
     </li>
     {% endfor %}
 
+    {% if user.is_authenticated %}
+    <li>
+        <a href="{% url 'auth:logout' %}"> выйти</a>
+        {{ user.first_name|default:'Пользователь' }}
+    </li>
+    {% else %}
+    <li>
+        <a href="{% url 'auth:login' %}"> войти</a>
+    </li>
+    {% endif %}
 </ul>
