@@ -3,19 +3,11 @@
 {% block title %}
 	{{ title|title }}
 {% endblock %}
- {% block css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-	<link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
- {% endblock %}
-
-<body>
 		{% block menu %}
 		<div class="slider">
 			<div class="header clearfix">
 				<a href="index.html" class="logo"></a>
-				<ul class="menu">
-					{% include 'includes/inc_categories_menu.html' %}
-				</ul>
+					{% include 'includes/inc_main_menu.html' %}
 				<a href="#" class="search"></a>
 			</div>
 			<div class="text-slider">
