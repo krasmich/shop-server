@@ -9,7 +9,6 @@ from mainapp.models import ProductCategory, Product
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
-
 def get_basket(user):
     if user.is_authenticated:
         return Basket.objects.filter(user=user)
@@ -30,13 +29,6 @@ def get_same_products(hot_product):
 
 module_dir = os.path.dirname(__file__)
 
-# links_menu = [
-#     {'href': 'products_all', 'name': 'все'},
-#     {'href': 'products_home', 'name': 'дом'},
-#     {'href': 'products_office', 'name': 'офис'},
-#     {'href': 'products_modern', 'name': 'модерн'},
-#     {'href': 'products_classic', 'name': 'классика'},
-# ]
 
 menu = [
     {'href': 'index', 'name': 'главная'},
@@ -91,8 +83,6 @@ def products(request, pk=None, page=1):
 
     hot_product = get_hot_product()
     same_products = get_same_products(hot_product)
-
-    # same_products = Product.objects.all()[:5]
 
     content = {
         'title': title,

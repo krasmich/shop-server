@@ -31,6 +31,7 @@ urlpatterns = [
     path('auth/', include('authapp.urls', namespace='auth')),
     path('context/', context_),
     path('basket/', include('basketapp.urls', namespace='basket')),
+    path('order/', include('ordersapp.urls', namespace='order')),
 ]
 
 if settings.DEBUG:
