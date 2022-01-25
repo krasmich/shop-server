@@ -1,6 +1,18 @@
 {% extends "ordersapp/base.html" %}
 {% load static %}
 
+{% block content_js %}
+<script>
+$('.formset_row').formset({
+    addText: 'добавить продукт',
+    deleteText: 'удалить',
+    prefix: 'orderitems',
+    removed: recalculate_total_values
+    });
+</script>
+{% endblock %}
+
+
 {% block content %}
    {% include 'ordersapp/includes/inc_order_summary.html' %}
    <div class="order_form">
@@ -23,14 +35,18 @@
                    {% endif %}
                    <tr class="formset_row">
                        {% for field in form.visible_fields %}
-                           <td class="{% cycle 'td1' 'td2' 'td3' %} order formset_td">
+                           <td class="{% cycle 'td1' 'td2' 'td3' 'td4' %} order formset_td">
                                {% if forloop.first %}
                                    {% for hidden in form.hidden_fields %}
                                        {{ hidden }}
                                    {% endfor %}
                                {% endif %}
                                {{ field.errors.as_ul }}
-                               {{ field }}
+                               {% if field.name == 'price' %}
+                                    <span class="orderitems-{{forloop.parentloop.counter0}}-price"> {{ field.value }} </span> руб
+                               {% else %}
+                                    {{ field }}
+                               {% endif %}
                            </td>
                        {% endfor %}
                    </tr>

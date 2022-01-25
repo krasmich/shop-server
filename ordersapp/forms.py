@@ -14,11 +14,15 @@ class OrderForm(forms.ModelForm):
 
 
 class OrderItemForm(forms.ModelForm):
-   class Meta:
-       model = OrderItem
-       exclude = []
+    class Meta:
+        model = OrderItem
+        exclude = []
 
-   def __init__(self, *args, **kwargs):
-       super(OrderItemForm, self).__init__(*args, **kwargs)
-       for field_name, field in self.fields.items():
-           field.widget.attrs['class'] = 'form-control'
+    price = forms.CharField(label='Цена', required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(OrderItemForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            if field_name == 'price':
+                field.widget.attrs['readonly'] = 'true'
