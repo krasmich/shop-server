@@ -1,4 +1,4 @@
-function recalculate_total_values() {
+function recalculate_total_values(removed_row) {
     TOTAL_FORMS = parseInt($('input[name="orderitems-TOTAL_FORMS"]').val());
 
     var quantities = [];
@@ -27,7 +27,16 @@ function recalculate_total_values() {
     $('.order_total_quantity').text(order_total_quantity)
 }
 
-window.onload = function () {
-    $('.order_form input[type="number"]').on('click', recalculate_total_values);
-    recalculate_total_values()
+//window.onload = function () {
+//    $('.order_form input[type="number"]').on('click', recalculate_total_values);
+//    $('.order_form select').on('change' function(event) {
+//        var product_id = this.value;
+//        $.ajax({
+//            url: "/products/product/" + product_id + "/price",
+//            success: function (data) {
+//                $('.orderitems-' + product_id + '-price').html(data.price);
+//            },
+//        });
+//    })
+//    recalculate_total_values()
 }
