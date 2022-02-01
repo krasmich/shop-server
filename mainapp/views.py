@@ -10,6 +10,7 @@ from mainapp.models import ProductCategory, Product
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
+
 def get_basket(user):
     if user.is_authenticated:
         return Basket.objects.filter(user=user)
@@ -57,13 +58,15 @@ def products(request, pk=None, page=1):
 
     if pk is not None:
         if pk == 0:
-            products = Product.objects.filter(is_active=True, category__is_active=True).order_by('price')
+            products = Product.objects.filter(is_active=True, category__is_active=True
+                                              ).order_by('price').select_related()
             category = {'name': 'все'}
         else:
             category = get_object_or_404(ProductCategory, pk=pk)
-            products = Product.objects.filter(category__pk=pk, is_active=True, category__is_active=True).order_by('price')
+            products = Product.objects.filter(category__pk=pk, is_active=True, category__is_active=True
+                                              ).order_by('price').select_related()
 
-        paginator = Paginator(products, 2)
+        paginator = Paginator(products.select_related(), 2)
         try:
             products_paginator = paginator.page(page)
         except PageNotAnInteger:
@@ -117,8 +120,15 @@ def context_(request):
 
 def main(request):
     title = 'главная'
-    products = Product.objects.all()[:3]
-    content = {'title': title, 'products': products, 'menu': menu}
+    products = (
+        Product.objects
+        .filter(is_active=True, category__is_active=True)
+        .select_related()[:3]
+    )
+    content = {
+        'title': title,
+        'products': products,
+    }
     return render(request, 'mainapp/index.html', content)
 
 

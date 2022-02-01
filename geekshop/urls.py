@@ -22,7 +22,7 @@ from django.conf.urls import include
 urlpatterns = [
     # Social auth
     path('', include('social_django.urls', namespace='social')),
-
+    path('__debug__/', include('debug_toolbar.urls')),
     # Application urls
     path('admin/', include('adminapp.urls', namespace='admin')),
     path('', main, name='index'),
