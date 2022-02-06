@@ -1,3 +1,4 @@
+<a href="{% url 'index' %}" class="logo"></a>
 <ul class="menu">
     <li>
         <a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">
@@ -16,24 +17,9 @@
     </li>
     {% if user.is_authenticated %}
         <li>
-            <div class="dropdown">
-                <a class="dropdown-toggle" href="" data-toggle="dropdown">
-                    {{ user.first_name|default:'Пользователь' }}
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="{% url 'auth:edit' %}">
-                            {{ user.first_name|default:'Пользователь' }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'ordersapp:orders_list' %}">
-                            заказы
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <a href="{% url 'auth:edit' %}">
+                {{ user.first_name|default:'Пользователь' }}
+            </a>
         </li>
     {% endif %}
     {% if user.is_superuser %}
