@@ -4,7 +4,7 @@
 
 {% block content %}
    <div class="h2 text-center head">
-       Ваши заказы, 
+       Ваши заказы,
        {% if user.first_name %}
            {{ user.first_name|title}}
        {% else %}
@@ -53,7 +53,7 @@
        </tbody>
    </table>
    <button class="btn btn-default btn-round">
-       <a href="{% url 'index' %}">
+       <a href="{% url 'main' %}">
            на главную
        </a>
    </button>

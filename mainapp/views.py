@@ -46,6 +46,7 @@ def get_links_menu():
     else:
         return ProductCategory.objects.filter(is_active=True)
 
+
 def get_basket(user):
     if user.is_authenticated:
         return Basket.objects.filter(user=user)
@@ -67,16 +68,8 @@ def get_same_products(hot_product):
 module_dir = os.path.dirname(__file__)
 
 
-menu = [
-    {'href': 'index', 'name': 'главная'},
-    {'href': 'products:index', 'name': 'продукты'},
-    {'href': 'contact', 'name': 'контакты'},
-]
 
 
-def index(request):
-    context = {'title': 'Магазин', 'menu': menu}
-    return render(request, 'mainapp/index.html', context)
 
 
 def products(request, pk=None, page=1):
@@ -90,15 +83,17 @@ def products(request, pk=None, page=1):
 
     if pk is not None:
         if pk == 0:
-            products = Product.objects.filter(is_active=True, category__is_active=True
-                                              ).order_by('price').select_related()
-            category = {'name': 'все'}
+            category = {
+                'pk': 0,
+                'name': 'все'
+            }
+            products = Product.objects.filter(is_active=True, category__is_active=True).order_by('price')
         else:
             category = get_object_or_404(ProductCategory, pk=pk)
-            products = Product.objects.filter(category__pk=pk, is_active=True, category__is_active=True
-                                              ).order_by('price').select_related()
+            products = Product.objects.filter(category__pk=pk, is_active=True, category__is_active=True).order_by(
+                'price')
 
-        paginator = Paginator(products.select_related(), 2)
+        paginator = Paginator(products, 2)
         try:
             products_paginator = paginator.page(page)
         except PageNotAnInteger:
@@ -109,9 +104,8 @@ def products(request, pk=None, page=1):
         content = {
             'title': title,
             'links_menu': links_menu,
-            'products': products_paginator,
             'category': category,
-            'menu': menu,
+            'products': products_paginator,
             'basket': basket,
         }
 
@@ -125,7 +119,6 @@ def products(request, pk=None, page=1):
         'links_menu': links_menu,
         'hot_product': hot_product,
         'same_products': same_products,
-        'menu': menu,
         'basket': basket,
     }
     return render(request, 'mainapp/products.html', content)
@@ -166,7 +159,6 @@ def products_ajax(request, pk=None, page=1):
                       context=content)
 
 
-
 def contact(request):
     title = 'о нас'
 
@@ -204,6 +196,7 @@ def main(request):
     content = {
         'title': title,
         'products': products,
+        'basket': get_basket(request.user),
     }
     return render(request, 'mainapp/index.html', content)
 

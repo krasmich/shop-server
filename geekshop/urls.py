@@ -18,6 +18,7 @@ from mainapp.views import contact, main, context_
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include
+import mainapp.views as mainapp
 
 urlpatterns = [
     # Social auth
@@ -25,7 +26,7 @@ urlpatterns = [
     path('__debug__/', include('debug_toolbar.urls')),
     # Application urls
     path('admin/', include('adminapp.urls', namespace='admin')),
-    path('', main, name='index'),
+    path('', mainapp.main, name='main'),
     path('products/', include('mainapp.urls', namespace='products')),
     path('contact/', contact, name='contact'),
     path('auth/', include('authapp.urls', namespace='auth')),
