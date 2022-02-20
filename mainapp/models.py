@@ -1,6 +1,7 @@
 from django.db import models
-
-# Create your models here.
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from django.db import connection
 
 
 class ProductCategory(models.Model):
@@ -24,3 +25,15 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.category.name})"
+
+
+@receiver(pre_save, sender=ProductCategory)
+def update_is_active_on_products(sender, update_fields, instance, **kwargs):
+    if update_fields not in ['is_active']:
+        return
+
+    if instance.pk:
+        if instance.is_active:
+            instance.product_set.update(is_active=True)
+        else:
+            instance.product_set.update(is_active=False)
