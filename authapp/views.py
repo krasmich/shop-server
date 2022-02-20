@@ -1,16 +1,18 @@
 from django.http import HttpResponse
 from django.shortcuts import render, HttpResponseRedirect
 
-from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
+from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm, ShopUserProfileEditForm
 from authapp.models import ShopUser
 from django.contrib import auth
+
+from django.db import transaction
+
 from django.urls import reverse
 # Create your views here.
 from authapp.utils import send_verify_mail
 
 
 def login(request):
-
     title = 'вход'
 
     login_form = ShopUserLoginForm(data=request.POST)
@@ -27,7 +29,7 @@ def login(request):
             if 'next' in request.POST.keys():
                 return HttpResponseRedirect(request.POST['next'])
             else:
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('main'))
 
     content = {
         'title': title,
@@ -40,7 +42,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('main'))
 
 
 def register(request, user=None):
@@ -60,19 +62,22 @@ def register(request, user=None):
     return render(request, 'authapp/register.html', content)
 
 
+@transaction.atomic
 def edit(request):
     title = 'редактирование'
 
     if request.method == 'POST':
         edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
-
-        if edit_form.is_valid():
+        profile_form = ShopUserProfileEditForm(request.POST, instance=request.user.shopuserprofile)
+        if edit_form.is_valid() and profile_form.is_valid():
             edit_form.save()
+            profile_form.save()
             return HttpResponseRedirect(reverse('auth:edit'))
     else:
         edit_form = ShopUserEditForm(instance=request.user)
+        profile_form = ShopUserProfileEditForm(instance=request.user.shopuserprofile)
 
-    content = {'title': title, 'edit_form': edit_form}
+    content = {'title': title, 'edit_form': edit_form, 'profile_form': profile_form}
 
     return render(request, 'authapp/edit.html', content)
 
@@ -90,4 +95,4 @@ def verify(request, email, activation_key):
             return render(request, 'authapp/verification.html')
     except Exception as e:
         print(f'error activation user : {e.args}')
-        return HttpResponseRedirect(reverse('index'))
+        return HttpResponseRedirect(reverse('main'))
