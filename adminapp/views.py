@@ -81,8 +81,9 @@ def user_delete(request, pk):
     if request.method == 'POST':
         # user.delete()
         # вместо удаления лучше сделаем неактивным
-        user.is_active = False
-        user.save()
+        # user.is_active = False
+        # user.save()
+        user.delete()
         return HttpResponseRedirect(reverse('admin:users'))
 
     content = {'title': title, 'user_to_delete': user}

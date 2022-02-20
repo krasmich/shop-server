@@ -1,77 +1,37 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
-{% block title %}
-	{{ title|title }}
+{% load cache %}
+
+{% block menu %}
+    <div class="hero">
+		<div class="header clearfix">
+            {% include 'includes/inc_main_menu.html' %}
+		</div>
+		<h1>наши контакты</h1>
+	</div>
 {% endblock %}
- {% block css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-	<link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
- {% endblock %}
 
+{% block content %}
+    <div class="location">
+        {% for location in locations %}
+        <div class="location-1">
+            <i class="fa fa-map-marker fa-5x"></i>
+            <h4>{{ location.city }}</h4>
+            <div class="contacts">
+                <h5>Телефон</h5>
+                <p>{{ location.phone }}</p>
+            </div>
+            <div class="contacts">
+                <h5>Email</h5>
+                <p>{{ location.email }}</p>
+            </div>
+            <div class="contacts">
+                <h5>Адрес</h5>
+                <p>{{ location.address }}</p>
+            </div>
+        </div>
+       {% endfor %}
+    </div>
 
-		{% block menu %}
-		<div class="hero">
-			<div class="header clearfix">
-				<a href="index.html" class="logo"></a>
-					{% include 'includes/inc_main_menu.html' %}
-				<a href="#" class="search"></a>
-                <a href="#" class="basket"></a>
-			</div>
-			<h1>наши контакты</h1>
-		</div>
-		{% endblock %}
-
-		{% block content %}
-		<div class="location">
-			<div class="location-1">
-				<i class="fa fa-map-marker fa-5x"></i>
-				<h4>Москва</h4>
-				<div class="contacts">
-					<h5>Телефон</h5>
-					<p>+7-888-888-8888</p>
-				</div>
-				<div class="contacts">
-					<h5>Email</h5>
-					<p>info@geekshop.ru</p>
-				</div>
-				<div class="contacts">
-					<h5>Адрес</h5>
-					<p>В пределах МКАД</p>
-				</div>
-			</div>
-			<div class="location-1">
-				<i class="fa fa-map-marker fa-5x"></i>
-				<h4>Москва</h4>
-				<div class="contacts">
-					<h5>Телефон</h5>
-					<p>+7-888-888-8888</p>
-				</div>
-				<div class="contacts">
-					<h5>Email</h5>
-					<p>info@geekshop.ru</p>
-				</div>
-				<div class="contacts">
-					<h5>Адрес</h5>
-					<p>В пределах МКАД</p>
-				</div>
-			</div>
-			<div class="location-1">
-				<i class="fa fa-map-marker fa-5x"></i>
-				<h4>Москва</h4>
-				<div class="contacts">
-					<h5>Телефон</h5>
-					<p>+7-888-888-8888</p>
-				</div>
-				<div class="contacts">
-					<h5>Email</h5>
-					<p>info@geekshop.ru</p>
-				</div>
-				<div class="contacts">
-					<h5>Адрес</h5>
-					<p>В пределах МКАД</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="clr"></div>
-		{% endblock %}
+    <div class="clr"></div>
+{% endblock %}
