@@ -140,3 +140,5 @@ GitHub.sublime-settings
 .history
 
 github.json
+data.json
+test_db.json
